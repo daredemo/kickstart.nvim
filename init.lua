@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -146,7 +146,10 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- René
+vim.opt.showbreak = '↪ '
+vim.opt.listchars = { tab = '» ', eol = '↲', nbsp = '␣', trail = '·', extends = '⟩', precedes = '⟨', space = '·' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -605,9 +608,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -647,6 +650,37 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'prettier',
+        'isort',
+        'black',
+        'texlab',
+        'autopep8',
+        'bibtex-tidy',
+        'clangd',
+        'bashls',
+        'shellcheck',
+        'pyright',
+        'python-lsp-server',
+        'cssls',
+        'html',
+        'html-lsp',
+        'latexindent',
+        'prettierd',
+        'jsonls',
+        'json-lsp',
+        'markdown-oxide',
+        'rust_analyzer',
+        'zls',
+        'ltex-ls',
+        'sqlls',
+        'htmlbeautifier',
+        'beautysh',
+        'typos-lsp',
+        'phpstan',
+        'standardjs',
+        'biome',
+        'pretty-php',
+        'intelephense',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -701,9 +735,32 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
+        python = { 'isort', 'black', 'autopep8', 'pyright', 'python-lsp-server' },
+        latex = { 'texlab', 'latexindent', 'ltex-ls' },
+        bash = { 'bashls', 'beautysh' },
+        sql = { 'sqlls' },
+        css = { 'cssls', 'prettier', 'prettierd' },
+        bibtex = { 'bibtex-tidy' },
+        c = { 'clangd' },
+        cpp = { 'clangd' },
+        html = { 'html', 'html-lsp', 'htmlbeautifier', 'prettier', 'prettierd' },
+        php = { 'intelephense', 'phpstan', 'pretty-php' },
+        markdown = {
+          -- 'marksman',
+          'markdown-oxide',
+        },
         --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        -- You can use a sub-list to tell conform to run *until* a formatter
+        -- is found.
+        javascript = {
+          -- 'tsserver',
+          'biome',
+          'prettierd',
+          'prettier',
+          'eslint-lsp',
+          'standardjs',
+        },
+        json = { 'json-lsp', 'biome' },
       },
     },
   },
@@ -888,7 +945,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'python', 'json', 'javascript', 'css', 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -918,10 +975,10 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -929,7 +986,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
