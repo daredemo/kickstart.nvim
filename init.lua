@@ -657,6 +657,7 @@ require('lazy').setup({
         'autopep8',
         'bibtex-tidy',
         'clangd',
+        'ast-grep',
         'bashls',
         'shellcheck',
         'pyright',
@@ -741,8 +742,8 @@ require('lazy').setup({
         sql = { 'sqlls' },
         css = { 'cssls', 'prettier', 'prettierd' },
         bibtex = { 'bibtex-tidy' },
-        c = { 'clangd' },
-        cpp = { 'clangd' },
+        c = { 'clangd', 'ast-grep' },
+        cpp = { 'clangd', 'ast-grep' },
         html = { 'html', 'html-lsp', 'htmlbeautifier', 'prettier', 'prettierd' },
         php = { 'intelephense', 'phpstan', 'pretty-php' },
         markdown = {
