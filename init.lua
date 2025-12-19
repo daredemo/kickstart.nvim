@@ -148,7 +148,7 @@ vim.o.list = true
 -- vim.o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- René
 vim.o.showbreak = '↪ '
-vim.o.listchars = { tab = '» ', eol = '↲', nbsp = '␣', trail = '·', extends = '⟩', precedes = '⟨', space = '·' }
+vim.opt.listchars = { tab = '» ', eol = '↲', nbsp = '␣', trail = '·', extends = '⟩', precedes = '⟨', space = '·' }
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -992,7 +992,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
